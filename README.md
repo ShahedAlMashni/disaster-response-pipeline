@@ -31,14 +31,13 @@ install the packages by running:
 ## Instructions:
 1. Run the following commands to set up the database and model.
 
-    - To run ETL pipeline that cleans data and stores in database, **go to the data directory** and run:
-        `python3 process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`
-        This will create the database file in the **data** drectory
-    - To run ML pipeline that trains classifier and saves the model,
-        **go to the model directory** and run:
-        `python3 train_classifier.py ../data/DisasterResponse.db classifier.pkl`
+    - To run ETL pipeline that cleans data and stores in database, **go to the data directory** and run:  
+            `python3 process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`  
+        
+    - To run ML pipeline that trains classifier and saves the model,**go to the model directory** and run:  
+             `python3 train_classifier.py ../data/DisasterResponse.db classifier.pkl`
 
-2. Run the following command in the **app directory** to run the web app.
-    `python3 run.py`
+2. Run the following command in the **app directory** to run the web app.  
+         `python3 run.py`
 
 3. Go to http://0.0.0.0:3001/
