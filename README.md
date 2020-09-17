@@ -25,6 +25,7 @@ To get the flask app working you need:
 - packages in requirements.txt file
 
 install the packages with
+`pip install wheel`
 `pip install -r requirements.txt`
 
 ## Instructions:
