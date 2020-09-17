@@ -21,6 +21,11 @@ You can find screenshots of the working web application
 
 ## Requirements:
 To get the flask app working you need:
+- python3
+- packages in requirements.txt file
+
+install the packages with
+`pip install -r requirements.txt`
 
 ## Instructions:
 1. Run the following commands to set up the database and model.
