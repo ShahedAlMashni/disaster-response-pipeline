@@ -4,7 +4,13 @@ import numpy as np
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-    #load messages
+    """
+    Loads the messages and categories datasets and merge them together.
+    
+    Returns:
+     df (pandas dataframe): merged datasets. 
+    """
+    
     messages = pd.read_csv('disaster_messages.csv')
     #messages.head()
     #load categories
@@ -21,6 +27,16 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """
+    Cleans dataset and extracts classification categories.
+    
+    Parameters: 
+         df (pandas dataframe): dataset containing messages and categories. 
+          
+    Returns: 
+         df (pandas dataframe): cleaned dataset.
+    """
+    
     # create a dataframe of the individual category columns
     categories = df.categories.str.split(pat = ';',expand = True)
 
@@ -51,7 +67,8 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    # Save the clean dataset into an sqlite database
+    """Save the clean dataset into an sqlite database in the provided path"""
+    
     database = 'sqlite:///' + database_filename
     engine = create_engine(database)
     df.to_sql('disaster_response', engine, index=False, if_exists = 'replace')  
