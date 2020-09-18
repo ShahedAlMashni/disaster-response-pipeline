@@ -41,3 +41,6 @@ install the packages by running:
          `python3 run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+## Overview of the application:
+Screenshots of the web app is added in the [screenshots](https://github.com/ShahedAlMashni/disaster-response-pipeline/tree/master/screenshots) folder.
