@@ -26,11 +26,13 @@ from sklearn.utils.multiclass import type_of_target
 import pickle
 
 
-# pipeline class for extracting features from data
-# returns true if sentence starts with verb
-class StartingVerbExtractor(BaseEstimator, TransformerMixin):
 
+class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+    """Custom pipeline class for extracting features from data."""
+    
     def starting_verb(self, text):
+        """Returns true if sentense starts with verb"""
+        
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:
             pos_tags = nltk.pos_tag(tokenize(sentence))
@@ -49,7 +51,16 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
         return pd.DataFrame(X_tagged)
 
 def load_data(database_filepath):
-    #load data from database
+    """
+    Load data from sqlite database.
+    
+    Returns:
+    df (pandas dataframe): loaded dataset
+    X: messages column
+    Y: classification categories
+    category_names: containes column names of classification categories
+    """
+    
     database = 'sqlite:///'+database_filepath
     engine = create_engine(database)
     df = pd.read_sql_table('disaster_response', database)  
@@ -61,6 +72,8 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """remove punctuation from text, tokenize and extract words. """
+   
     # remove punctuation
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
     
@@ -78,6 +91,11 @@ def tokenize(text):
 
 
 def get_pipeline():
+    """
+    Creates machine learning pipeline.
+    
+    The pipeline takes in the `message` column as input and output classification results on the other 36 categories in the dataset. 
+    """
     
     pipeline = Pipeline([
                         ('features',FeatureUnion([
@@ -92,6 +110,7 @@ def get_pipeline():
     return pipeline
 
 def build_model():
+    """Use GridSearch to find better parameters to tune the model."""
     
     pipeline = get_pipeline()
 
@@ -110,6 +129,11 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Outputs the overall accuracy and a classification report for all 36 categories.
+    
+    The classification report contains: 'precision', 'recall', 'f1-score' , 'support'.
+    """
     Y_pred = model.predict(X_test)
 
     #get mean accuracy
@@ -123,6 +147,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """save model as pickle file"""
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
